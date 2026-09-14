@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellaHeat - Special Verification</title>
+
+    <!-- 📊 GOOGLE ADS PIXEL — paste your own gtag.js snippet here -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-XXXXXXXXX');
+    </script>
+    -->
+    <!-- Replace AW-XXXXXXXXX above with your real Conversion ID.
+         The click-conversion event fires automatically on every
+         button that redirects to the affiliate link (see trackAndRedirect below).
+         Replace 'AW-XXXXXXXXX/XXXXXXXXXXXXX' inside trackAndRedirect()
+         with your real Conversion ID/Label when you have it. -->
+
+    <!-- END OF PIXEL SPACE -->
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .advertorial-tag {
+            background-color: #eeeeee;
+            color: #666666;
+            font-size: 11px;
+            text-align: center;
+            padding: 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .headline {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0a0a0a;
+            margin-bottom: 15px;
+        }
+
+        .subheadline {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .btn-redirect {
+            display: inline-block;
+            background-color: #e65100;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            box-shadow: 0 4px 10px rgba(230, 81, 0, 0.3);
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-redirect:hover {
+            background-color: #bf4300;
+        }
+
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888888;
+            line-height: 1.6;
+        }
+
+        footer a {
+            color: #666666;
+            text-decoration: underline;
+            margin: 0 10px;
+        }
+
+        .disclosure-text {
+            max-width: 800px;
+            margin: 15px auto 0 auto;
+            font-size: 11px;
+            color: #aaaaaa;
+        }
+
+        /* 🍪 Cookie consent overlay - centered, larger */
+        .cookie-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.35);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .cookie-modal {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 460px;
+            width: 100%;
+            padding: 30px 30px 25px 30px;
+            text-align: left;
+        }
+
+        .cookie-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+            color: #111111;
+        }
+
+        .cookie-text {
+            font-size: 14px;
+            color: #444444;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
+        }
+
+        .cookie-learn-more {
+            font-size: 14px;
+            color: #333333;
+            text-decoration: underline;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .btn-deny, .btn-allow {
+            background-color: #4fc3f7;
+            color: #111111;
+            border: none;
+            padding: 14px 10px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            flex: 1;
+            text-transform: uppercase;
+        }
+
+        .btn-deny:hover, .btn-allow:hover {
+            background-color: #29b6f6;
+        }
+
+        .cookie-settings-link {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #111111;
+            text-decoration: underline;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            padding: 0;
+        }
+
+        /* 🚪 Exit-intent popup */
+        .exit-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.55);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .exit-modal {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 420px;
+            width: 100%;
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .exit-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #999999;
+            cursor: pointer;
+        }
+
+        .exit-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0a0a0a;
+            margin: 0 0 12px 0;
+        }
+
+        .exit-text {
+            font-size: 15px;
+            color: #555555;
+            line-height: 1.5;
+            margin: 0 0 22px 0;
+        }
+
+        .exit-btn {
+            display: inline-block;
+            background-color: #e65100;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+        }
+
+        .exit-btn:hover {
+            background-color: #bf4300;
+        }
+
+        @media (max-width: 480px) {
+            .cookie-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Required disclosure for Google Ads / FTC -->
+    <div class="advertorial-tag">Advertisement / Marketing Marketplace</div>
+
+    <div class="container">
+        <div class="card">
+            <!-- 🖼️ Image loaded from a separate folder to keep the page lightweight -->
+            <img src="/images/wellaheat-vest.jpg" alt="WellaHeat Heated Vest" class="product-image">
+
+            <h1 class="headline">Exclusive Promotional Offer</h1>
+            <p class="subheadline">
+                You are being redirected to the official supplier page for the <strong>WellaHeat Heated Vest</strong>.
+                Verify availability and claim your up to 65% off discount below.
+            </p>
+            <!-- Main CTA — goes through trackAndRedirect() so the click also fires the Google Ads conversion -->
+            <button class="btn-redirect" onclick="trackAndRedirect()">Check Availability Now</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            <a href="#">Contact Us</a> |
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms &amp; Conditions</a>
+        </p>
+        <p>&copy; 2026 Global Trend Spot. All Rights Reserved.</p>
+        <p class="disclosure-text">
+            MARKETING DISCLOSURE: This website is a marketplace. As such you should know that the owner has a monetary connection to the product and services advertised on the site. The owner receives payment whenever a qualified lead is referred.
+        </p>
+    </footer>
+
+    <!-- 🍪 Centered cookie consent modal — every button now redirects straight to the offer -->
+    <div id="cookieOverlay" class="cookie-overlay">
+        <div class="cookie-modal">
+            <h3 class="cookie-title">About cookies on this site</h3>
+            <p class="cookie-text">
+                We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you've provided to them or that they've collected from your use of their services. You consent to our cookies if you continue to use our website.
+            </p>
+            <a href="#" class="cookie-learn-more">Learn more</a>
+            <div class="cookie-buttons">
+                <button class="btn-deny" onclick="trackAndRedirect()">Deny All Cookies</button>
+                <button class="btn-allow" onclick="trackAndRedirect()">Allow All Cookies</button>
+            </div>
+            <button class="cookie-settings-link" onclick="trackAndRedirect()">Cookie Settings</button>
+        </div>
+    </div>
+
+    <!-- 🚪 Exit-intent popup (anti-fuga) -->
+    <div id="exitOverlay" class="exit-overlay">
+        <div class="exit-modal">
+            <button class="exit-close" onclick="closeExitPopup()">✕</button>
+            <h3 class="exit-title">Wait! Don't Miss This</h3>
+            <p class="exit-text">
+                Your exclusive 65% off on the WellaHeat Heated Vest is still available — but stock is limited today. Complete your check before you go.
+            </p>
+            <button class="exit-btn" onclick="trackAndRedirect()">Claim My Discount</button>
+        </div>
+    </div>
+
+    <script>
+        var AFFILIATE_URL = "https://www.coralstate.com/3759JH36/227GL6NN/";
+        var exitPopupShown = false;
+        var redirecting = false;
+
+        // Fires the Google Ads click-conversion event (when configured) then redirects
+        function trackAndRedirect() {
+            redirecting = true;
+            document.getElementById('cookieOverlay').style.display = 'none';
+
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-XXXXXXXXX/XXXXXXXXXXXXX', // 🔧 replace with your real Conversion ID/Label
+                    'event_callback': function () {
+                        window.location.href = AFFILIATE_URL;
+                    }
+                });
+                // Fallback in case the callback doesn't fire fast enough
+                setTimeout(function () {
+                    window.location.href = AFFILIATE_URL;
+                }, 400);
+            } else {
+                window.location.href = AFFILIATE_URL;
+            }
+        }
+
+        function closeExitPopup() {
+            document.getElementById('exitOverlay').style.display = 'none';
+        }
+
+        // --- Anti-fuga: exit-intent popup ---
+        document.addEventListener('mouseout', function (e) {
+            if (redirecting || exitPopupShown) return;
+            if (!e.relatedTarget && e.clientY <= 0) {
+                exitPopupShown = true;
+                document.getElementById('exitOverlay').style.display = 'flex';
+            }
+        });
+
+        // Mobile fallback: trigger on fast upward scroll near the top
+        var lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function () {
+            if (redirecting || exitPopupShown) return;
+            if (window.scrollY < lastScrollY && window.scrollY < 50) {
+                exitPopupShown = true;
+                document.getElementById('exitOverlay').style.display = 'flex';
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // --- Anti-fuga: block back button ---
+        history.pushState(null, "", window.location.href);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, "", window.location.href);
+            if (!redirecting) {
+                exitPopupShown = true;
+                document.getElementById('exitOverlay').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
