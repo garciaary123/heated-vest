@@ -5,22 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WellaHeat - Special Verification</title>
 
-    <!-- 📊 GOOGLE ADS PIXEL — paste your own gtag.js snippet here -->
-    <!--
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+    <!-- 📊 GOOGLE ADS GLOBAL TAG -->
+    <script async src="https://googletagmanager.com"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'AW-XXXXXXXXX');
+      gtag('config', 'AW-18380270490');
     </script>
-    -->
-    <!-- Replace AW-XXXXXXXXX above with your real Conversion ID.
-         The click-conversion event fires automatically on every
-         button that redirects to the affiliate link (see trackAndRedirect below).
-         Replace 'AW-XXXXXXXXX/XXXXXXXXXXXXX' inside trackAndRedirect()
-         with your real Conversion ID/Label when you have it. -->
 
+    <!-- 🎯 GOOGLE ADS EVENT SNIPPET -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18380270490/HKnfCKmny_ccEJrXsrxE',
+          'value': 65.0,
+          'currency': 'USD',
+          'transaction_id': '',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
     <!-- END OF PIXEL SPACE -->
 
     <style>
@@ -125,7 +136,7 @@
             color: #aaaaaa;
         }
 
-        /* 🍪 Cookie consent overlay - centered, larger */
+        /* 🍪 Cookie consent overlay */
         .cookie-overlay {
             position: fixed;
             top: 0;
@@ -164,14 +175,6 @@
             margin: 0 0 15px 0;
         }
 
-        .cookie-learn-more {
-            font-size: 14px;
-            color: #333333;
-            text-decoration: underline;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
         .cookie-buttons {
             display: flex;
             gap: 12px;
@@ -193,20 +196,6 @@
 
         .btn-deny:hover, .btn-allow:hover {
             background-color: #29b6f6;
-        }
-
-        .cookie-settings-link {
-            display: block;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 700;
-            color: #111111;
-            text-decoration: underline;
-            cursor: pointer;
-            background: none;
-            border: none;
-            width: 100%;
-            padding: 0;
         }
 
         /* 🚪 Exit-intent popup */
@@ -287,123 +276,64 @@
 </head>
 <body>
 
-    <!-- Required disclosure for Google Ads / FTC -->
     <div class="advertorial-tag">Advertisement / Marketing Marketplace</div>
 
     <div class="container">
         <div class="card">
-            <!-- 🖼️ Image loaded from a separate folder to keep the page lightweight -->
-            <img src="/images/wellaheat-vest.jpg" alt="WellaHeat Heated Vest" class="product-image">
+            <!-- Mudado para caminho relativo para funcionar perfeitamente no GitHub Pages -->
+            <img src="images/wellaheat-vest.jpg" alt="WellaHeat Heated Vest" class="product-image">
 
             <h1 class="headline">Exclusive Promotional Offer</h1>
             <p class="subheadline">
-                You are being redirected to the official supplier page for the <strong>WellaHeat Heated Vest</strong>.
-                Verify availability and claim your up to 65% off discount below.
+                You are being redirected to the official supplier page. Click the button below to secure your discount and check inventory availability.
             </p>
-            <!-- Main CTA — goes through trackAndRedirect() so the click also fires the Google Ads conversion -->
-            <button class="btn-redirect" onclick="trackAndRedirect()">Check Availability Now</button>
+
+            <!-- Botão Principal com disparo do Google Ads -->
+            <a href="https://coralstate.com" onclick="return gtag_report_conversion('https://coralstate.com');" class="btn-redirect">
+                Check Availability Now
+            </a>
+        </div>
+    </div>
+
+    <!-- 🍪 Cookie Modal HTML -->
+    <div id="cookieOverlay" class="cookie-overlay">
+        <div class="cookie-modal">
+            <h2 class="cookie-title">We value your privacy</h2>
+            <p class="cookie-text">We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Allow All", you consent to our use of cookies.</p>
+            <div class="cookie-buttons">
+                <button class="btn-deny" onclick="closeCookies()">Deny</button>
+                <button class="btn-allow" onclick="closeCookies()">Allow All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🚪 Exit Intent Modal HTML -->
+    <div id="exitOverlay" class="exit-overlay">
+        <div class="exit-modal">
+            <button class="exit-close" onclick="closeExitPopup()">×</button>
+            <h2 class="exit-title">WAIT! DON'T MISS OUT</h2>
+            <p class="exit-text">Stock is extremely limited due to high winter demand. Secure your special discount before prices go back to normal.</p>
+            <a href="https://coralstate.com" onclick="return gtag_report_conversion('https://coralstate.com');" class="exit-btn">
+                Claim My Discount
+            </a>
         </div>
     </div>
 
     <footer>
         <p>
-            <a href="#">Contact Us</a> |
-            <a href="#">Privacy Policy</a> |
-            <a href="#">Terms &amp; Conditions</a>
+            <a href="#" target="_blank">Privacy Policy</a> | 
+            <a href="#" target="_blank">Terms & Conditions</a> | 
+            <a href="#" target="_blank">Contact Us</a>
         </p>
-        <p>&copy; 2026 Global Trend Spot. All Rights Reserved.</p>
         <p class="disclosure-text">
-            MARKETING DISCLOSURE: This website is a marketplace. As such you should know that the owner has a monetary connection to the product and services advertised on the site. The owner receives payment whenever a qualified lead is referred.
+            MARKETING DISCLOSURE: This website is a market place. As an affiliate, we receive compensation from sales generated through our promotional links. This does not impact the price you pay.
         </p>
     </footer>
 
-    <!-- 🍪 Centered cookie consent modal — every button now redirects straight to the offer -->
-    <div id="cookieOverlay" class="cookie-overlay">
-        <div class="cookie-modal">
-            <h3 class="cookie-title">About cookies on this site</h3>
-            <p class="cookie-text">
-                We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you've provided to them or that they've collected from your use of their services. You consent to our cookies if you continue to use our website.
-            </p>
-            <a href="#" class="cookie-learn-more">Learn more</a>
-            <div class="cookie-buttons">
-                <button class="btn-deny" onclick="trackAndRedirect()">Deny All Cookies</button>
-                <button class="btn-allow" onclick="trackAndRedirect()">Allow All Cookies</button>
-            </div>
-            <button class="cookie-settings-link" onclick="trackAndRedirect()">Cookie Settings</button>
-        </div>
-    </div>
-
-    <!-- 🚪 Exit-intent popup (anti-fuga) -->
-    <div id="exitOverlay" class="exit-overlay">
-        <div class="exit-modal">
-            <button class="exit-close" onclick="closeExitPopup()">✕</button>
-            <h3 class="exit-title">Wait! Don't Miss This</h3>
-            <p class="exit-text">
-                Your exclusive 65% off on the WellaHeat Heated Vest is still available — but stock is limited today. Complete your check before you go.
-            </p>
-            <button class="exit-btn" onclick="trackAndRedirect()">Claim My Discount</button>
-        </div>
-    </div>
-
+    <!-- Scripts de funcionamento dos Popups -->
     <script>
-        var AFFILIATE_URL = "https://www.coralstate.com/3759JH36/227GL6NN/";
-        var exitPopupShown = false;
-        var redirecting = false;
-
-        // Fires the Google Ads click-conversion event (when configured) then redirects
-        function trackAndRedirect() {
-            redirecting = true;
+        function closeCookies() {
             document.getElementById('cookieOverlay').style.display = 'none';
-
-            if (typeof gtag === 'function') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-XXXXXXXXX/XXXXXXXXXXXXX', // 🔧 replace with your real Conversion ID/Label
-                    'event_callback': function () {
-                        window.location.href = AFFILIATE_URL;
-                    }
-                });
-                // Fallback in case the callback doesn't fire fast enough
-                setTimeout(function () {
-                    window.location.href = AFFILIATE_URL;
-                }, 400);
-            } else {
-                window.location.href = AFFILIATE_URL;
-            }
         }
 
         function closeExitPopup() {
-            document.getElementById('exitOverlay').style.display = 'none';
-        }
-
-        // --- Anti-fuga: exit-intent popup ---
-        document.addEventListener('mouseout', function (e) {
-            if (redirecting || exitPopupShown) return;
-            if (!e.relatedTarget && e.clientY <= 0) {
-                exitPopupShown = true;
-                document.getElementById('exitOverlay').style.display = 'flex';
-            }
-        });
-
-        // Mobile fallback: trigger on fast upward scroll near the top
-        var lastScrollY = window.scrollY;
-        window.addEventListener('scroll', function () {
-            if (redirecting || exitPopupShown) return;
-            if (window.scrollY < lastScrollY && window.scrollY < 50) {
-                exitPopupShown = true;
-                document.getElementById('exitOverlay').style.display = 'flex';
-            }
-            lastScrollY = window.scrollY;
-        });
-
-        // --- Anti-fuga: block back button ---
-        history.pushState(null, "", window.location.href);
-        window.addEventListener('popstate', function () {
-            history.pushState(null, "", window.location.href);
-            if (!redirecting) {
-                exitPopupShown = true;
-                document.getElementById('exitOverlay').style.display = 'flex';
-            }
-        });
-    </script>
-</body>
-</html>
