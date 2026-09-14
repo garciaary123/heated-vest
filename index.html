@@ -6,7 +6,7 @@
     <title>WellaHeat - Special Verification</title>
 
     <!-- 📊 GOOGLE ADS GLOBAL TAG -->
-    <script async src="https://googletagmanager.com"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18380270490"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -14,23 +14,30 @@
       gtag('config', 'AW-18380270490');
     </script>
 
-    <!-- 🎯 GOOGLE ADS EVENT SNIPPET -->
+    <!-- 🎯 GOOGLE ADS EVENT SNIPPET + REDIRECT TO AFFILIATE LINK -->
     <script>
-    function gtag_report_conversion(url) {
-      var callback = function () {
-        if (typeof(url) != 'undefined') {
-          window.location = url;
+      var AFFILIATE_URL = "https://www.coralstate.com/3759JH36/227GL6NN/";
+
+      function gtag_report_conversion(url) {
+        var destination = url || AFFILIATE_URL;
+        var callback = function () {
+          window.location = destination;
+        };
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+              'send_to': 'AW-18380270490/HKnfCKmny_ccEJrXsrxE',
+              'value': 65.0,
+              'currency': 'USD',
+              'transaction_id': '',
+              'event_callback': callback
+          });
+          // fallback in case the callback is delayed/blocked
+          setTimeout(function () { window.location = destination; }, 400);
+        } else {
+          window.location = destination;
         }
-      };
-      gtag('event', 'conversion', {
-          'send_to': 'AW-18380270490/HKnfCKmny_ccEJrXsrxE',
-          'value': 65.0,
-          'currency': 'USD',
-          'transaction_id': '',
-          'event_callback': callback
-      });
-      return false;
-    }
+        return false;
+      }
     </script>
     <!-- END OF PIXEL SPACE -->
 
@@ -280,7 +287,7 @@
 
     <div class="container">
         <div class="card">
-            <!-- Caminho relativo corrigido para ler a pasta do GitHub Pages -->
+            <!-- Relative path, reads from the /images folder next to this file -->
             <img src="images/wellaheat-vest.jpg" alt="WellaHeat Heated Vest" class="product-image">
 
             <h1 class="headline">Exclusive Promotional Offer</h1>
@@ -288,32 +295,32 @@
                 You are being redirected to the official supplier page. Click the button below to secure your discount and check inventory availability.
             </p>
 
-            <!-- Botão Principal com Link de Afiliado e Pixel ativos -->
-            <a href="https://coralstate.com" onclick="return gtag_report_conversion('https://coralstate.com seasonings/');" class="btn-redirect">
+            <!-- Main button: correct affiliate link + working pixel -->
+            <a href="https://www.coralstate.com/3759JH36/227GL6NN/" onclick="return gtag_report_conversion('https://www.coralstate.com/3759JH36/227GL6NN/');" class="btn-redirect">
                 Check Availability Now
             </a>
         </div>
     </div>
 
-    <!-- 🍪 Cookie Modal HTML -->
+    <!-- 🍪 Cookie Modal — every button now fires the pixel and redirects to the offer -->
     <div id="cookieOverlay" class="cookie-overlay">
         <div class="cookie-modal">
             <h2 class="cookie-title">We value your privacy</h2>
             <p class="cookie-text">We use cookies to enhance your browsing experience and analyze our traffic. By clicking "Allow All", you consent to our use of cookies.</p>
             <div class="cookie-buttons">
-                <button class="btn-deny" onclick="closeCookies()">Deny</button>
-                <button class="btn-allow" onclick="closeCookies()">Allow All</button>
+                <button class="btn-deny" onclick="gtag_report_conversion();">Deny</button>
+                <button class="btn-allow" onclick="gtag_report_conversion();">Allow All</button>
             </div>
         </div>
     </div>
 
-    <!-- 🚪 Exit Intent Modal HTML -->
+    <!-- 🚪 Exit Intent Modal -->
     <div id="exitOverlay" class="exit-overlay">
         <div class="exit-modal">
             <button class="exit-close" onclick="closeExitPopup()">×</button>
             <h2 class="exit-title">WAIT! DON'T MISS OUT</h2>
             <p class="exit-text">Stock is extremely limited due to high winter demand. Secure your special discount before prices go back to normal.</p>
-            <a href="https://coralstate.com" onclick="return gtag_report_conversion('https://coralstate.com');" class="exit-btn">
+            <a href="https://www.coralstate.com/3759JH36/227GL6NN/" onclick="return gtag_report_conversion('https://www.coralstate.com/3759JH36/227GL6NN/');" class="exit-btn">
                 Claim My Discount
             </a>
         </div>
@@ -321,8 +328,8 @@
 
     <footer>
         <p>
-            <a href="#" target="_blank">Privacy Policy</a> | 
-            <a href="#" target="_blank">Terms & Conditions</a> | 
+            <a href="#" target="_blank">Privacy Policy</a> |
+            <a href="#" target="_blank">Terms &amp; Conditions</a> |
             <a href="#" target="_blank">Contact Us</a>
         </p>
         <p class="disclosure-text">
@@ -330,10 +337,48 @@
         </p>
     </footer>
 
-    <!-- Scripts de funcionamento dos Popups -->
     <script>
+        var exitPopupShown = false;
+        var redirecting = false;
+
         function closeCookies() {
             document.getElementById('cookieOverlay').style.display = 'none';
         }
 
         function closeExitPopup() {
+            document.getElementById('exitOverlay').style.display = 'none';
+        }
+
+        // --- Anti-fuga: exit-intent popup (desktop) ---
+        document.addEventListener('mouseout', function (e) {
+            if (redirecting || exitPopupShown) return;
+            if (!e.relatedTarget && e.clientY <= 0) {
+                exitPopupShown = true;
+                document.getElementById('cookieOverlay').style.display = 'none';
+                document.getElementById('exitOverlay').style.display = 'flex';
+            }
+        });
+
+        // --- Anti-fuga: fast upward scroll near the top (mobile fallback) ---
+        var lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function () {
+            if (redirecting || exitPopupShown) return;
+            if (window.scrollY < lastScrollY && window.scrollY < 50) {
+                exitPopupShown = true;
+                document.getElementById('exitOverlay').style.display = 'flex';
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // --- Anti-fuga: block back button ---
+        history.pushState(null, "", window.location.href);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, "", window.location.href);
+            if (!redirecting) {
+                exitPopupShown = true;
+                document.getElementById('exitOverlay').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
